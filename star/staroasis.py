@@ -19,7 +19,7 @@ def valid_face(path):
   # Convert into grayscale
   gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
   # Detect faces
-  faces = face_cascade.detectMultiScale(gray, 1.1, 10)
+  faces = face_cascade.detectMultiScale(gray, 1.1, 20)
   if len(faces)==0:
     raise Exception('face not detected. Please use another image!')
   if len(faces)>1:
@@ -47,13 +47,13 @@ def base_model(image):
                 model_name = 'ArcFace',
                 enforce_detection = False)[0]
   lst = ['jyp','hybe','yg','sm']
-  data = [-avg_score(jyp['ArcFace_cosine'],3),-avg_score(hybe['ArcFace_cosine'],3),-avg_score(yg['ArcFace_cosine'],3),-avg_score(sm['ArcFace_cosine'],3)]
-  target = lst[np.argmin(data)]
-  probabilities = softmax(data)[np.argmin(data)]
-  identity = eval(target)['identity'][0].split('/')[-1].split('_')[0]
+  data = [-avg_score(jyp['ArcFace_cosine'],5),-avg_score(hybe['ArcFace_cosine'],5),-avg_score(yg['ArcFace_cosine'],5),-avg_score(sm['ArcFace_cosine'],5)]
+  target = lst[np.argmax(data)]
+  probabilities = softmax(data)[np.argmax(data)]
+  identity = eval(target)['identity'][0]#.split('/')[-1].split('_')[0]
   return target, probabilities,identity
 
 if __name__ == '__main__':
-    t, p,i = base_model('jyp/hide.jpg')
+    t, p,i = base_model('hybe/euncha2.jpg')
     print(f'당신이 {t}상일 확률은 {p}입니다!')
     print(f'특히 {i} 아티스트를 가장 닮았습니다')
