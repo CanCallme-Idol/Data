@@ -8,8 +8,9 @@ def avg_score(score,num):
   else:
     return sum(score)/len(score)
 
-def softmax(x):  
-    f_x = np.exp(x) / np.sum(np.exp(x))
+def softmax(x):
+    epsilon = 1e-5  
+    f_x = np.exp(x) / (np.sum(np.exp(x)) + epsilon)
     return f_x
 def valid_face(path):
   # Load the cascade
@@ -54,6 +55,6 @@ def base_model(image):
   return target, probabilities,identity
 
 if __name__ == '__main__':
-    t, p,i = base_model('hybe/hani.jpg')
+    t, p,i = base_model('jyp/sohi2.jpg')
     print(f'당신이 {t}상일 확률은 {p}입니다!')
     print(f'특히 {i} 아티스트를 가장 닮았습니다')
