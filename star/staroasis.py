@@ -1,4 +1,4 @@
-from deepface import DeepFace
+from deepface.DeepFace import find
 import numpy as np
 import cv2
 
@@ -28,22 +28,22 @@ def valid_face(path):
   
 def base_model(image):
   valid_face(image)
-  hybe = DeepFace.find(img_path = image,    # the image to compare against
+  hybe = find(img_path = image,    # the image to compare against
               db_path = "hybe",    # folder containing all the images
               model_name = 'ArcFace',
               enforce_detection = False)[0]
 
-  sm = DeepFace.find(img_path = image,    # the image to compare against
+  sm = find(img_path = image,    # the image to compare against
                 db_path = "sm",    # folder containing all the images
                 model_name = 'ArcFace',
                 enforce_detection = False)[0]
 
-  jyp = DeepFace.find(img_path = image,    # the image to compare against
+  jyp = find(img_path = image,    # the image to compare against
                 db_path = "jyp",    # folder containing all the images
                 model_name = 'ArcFace',
                 enforce_detection = False)[0]
 
-  yg = DeepFace.find(img_path = image,    # the image to compare against
+  yg = find(img_path = image,    # the image to compare against
                 db_path = "yg",    # folder containing all the images
                 model_name = 'ArcFace',
                 enforce_detection = False)[0]
@@ -55,6 +55,6 @@ def base_model(image):
   return target, probabilities,identity
 
 if __name__ == '__main__':
-    t, p,i = base_model('jyp/sohi2.jpg')
+    t, p,i = base_model('hybe/cazuha.jpg')
     print(f'당신이 {t}상일 확률은 {p}입니다!')
     print(f'특히 {i} 아티스트를 가장 닮았습니다')
